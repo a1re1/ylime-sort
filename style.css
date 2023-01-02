@@ -1,42 +1,18 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   background-color: black;
   color: white;
   font-family: Helvetica, sans-serif;
 }
 
-h1 {
-  font-size: 48px;
-}
-
-h4 {
-  font-size: 24px;
-  color: #0cad1f;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  margin-top: 25%;
-}
-
-.content,
-.exercises {
-  margin-left: 30px;
-}
-
 .game {
-  height: 80px ;
+  margin-left: auto;
+  margin-top: 100px;
+  height: 40px;
   position: relative;
   width: 400px;
 }
 
-.shape {
+div[class*="shape-"] {
   bottom: 0;
   font-size: 50px;
   font-weight: bold;
@@ -46,7 +22,7 @@ h4 {
 }
 
 .wipe-in {
-  opacity: 1;
+  opacity: 1 !important;
   top: 0%;
   transition: transform 200ms, opacity 200ms;
   transform: translateY(100%);
@@ -59,20 +35,14 @@ h4 {
   transform: scale(30%);
 }
 
-.shape span {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-left: 3px;
-}
-
-.wrapper {
-  margin-top: 45px;
+.buttons {
+  margin-top: 100px;
   display: flex;
   justify-content: center;
 }
 
 .button {
-  background-color: #FFFF; /* Green */
+  background-color: #55f;
   border: none;
   color: black;
   padding: 10px 10px;
