@@ -1,80 +1,82 @@
-shapeList = ["⯀", "▲", "⬤", "⬣", "⬧", "⭓", "⯄", "⯍"];
+const shapeList = ["⯀", "▲", "⬤", "⬣", "⬧", "⭓", "⯄", "⯍"];
 
-function shuffleArray(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-  }
-  return array;
+const score = {
+  "1": 0,
 }
 
-function createShape(symbol) {
+function duelLists() {
+  
+}
+
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (var i = shuffled.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = shuffled[i];
+      shuffled[i] = shuffled[j];
+      shuffled[j] = temp;
+  }
+  return shuffled;
+}
+
+function createShape(symbol, playerNumber) {
   let shape = document.createElement("div");
-  shape.className = "shape";
+  shape.className = "shape-" + playerNumber;
   shape.innerText = symbol;
   return shape;
 }
 
-var container = document.getElementById("game");
-let elementsArray = []
-shapeList.forEach(symbol => {
-  for(let i = 0; i < 5; i++) {
-    el = createShape(symbol);
-    elementsArray.push(el);
-  }
-});
-
-shuffleArray(elementsArray);
-elementsArray.forEach(function(element){
-  container.appendChild(element);
-})
-
-
-//
-// RUN WHEEL
-//
-
-
-let shapes = document.getElementsByClassName("shape")
-
 function wipeIn(element) {
-  element.classList.add('wipe-in')
+  return new Promise(resolve => resolve(element.classList.add('wipe-in')));
 }
 
-function wipeOut(element) {
+function wipeOut(element, player) {
   element.classList.add('wipe-out')
-  delay(200).then(() => reset(element))
-}
-
-function reset(element) {
-  element.classList = "shape"
+  delay(200).then(() => element.classList = player)
 }
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function* carousel(elements) {   
-   for (let i = 0; i >= 0; i++) {
-     if (i === 0) {
-       wipeIn(elements[i])
-       yield
-     }
-     
-     wipeOut(elements[i % elements.length])
-     wipeIn(elements[(i + 1) % elements.length])
-     yield
-   }
-}
-
-function runCarousel(genObj) {
-  pickShape = Math.floor(Math.random() * 4500) + 500;
-  if (!genObj.next().done) {
-    id = setTimeout(runCarousel, 200, genObj)
-    setTimeout(() => clearTimeout(id), pickShape)
+let rolling = false;
+function roll(playerNumber) {
+	if (rolling) {
+  	return;
   }
+  
+  playerClass = "shape-" + playerNumber;
+	rolling = true;
+  
+	let shapes = document.getElementsByClassName(playerClass);
+  for (let i = 0; i < shapes.length; i++) {
+  	shapes[i].classList = playerClass
+  }
+  
+  let chain = new Promise(resolve => resolve());
+  for (let i = 0; i < 3; i++ ){
+  	idx = Math.floor(Math.random() * shapes.length)
+  	const el = shapes[idx];
+  	chain = chain
+    	.then(() => wipeIn(el))
+      
+    if (i < 2) {
+    	chain = chain
+        .then(() => delay(150))
+				.then(() => wipeOut(el, playerClass))
+        .then(() => delay(150));
+    }
+  }
+  chain.then(() => rolling = false);
 }
 
-runCarousel(carousel(shapes))
+const container = document.getElementById("game");
+shuffleArray(
+	shapeList.map(symbol => createShape(symbol, 1))
+  	.concat(shapeList.map(symbol => createShape(symbol, 1)))
+  	.concat(shapeList.map(symbol => createShape(symbol, 1)))
+  	.concat(shapeList.map(symbol => createShape(symbol, 1)))
+  	.concat(shapeList.map(symbol => createShape(symbol, 1)))
+)
+	.forEach((el) => container.appendChild(el));
+roll(1);
