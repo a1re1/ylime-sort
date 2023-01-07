@@ -1,17 +1,43 @@
 <html>
   <head>
-    <title>mail sort</title>
+    <title>you've got mail</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="mailbox.ico">
   </head>
   <body>
-    <div class="game" id="game"></div>
-    <div class="buttons">
-      <button class="button" onclick="players(1)">Solo</button>
-      <button class="button" onclick="roll(1)">Duel</button>
-      <button class="button" onclick="players(2)">Triple</button>
-      <button class="button" onclick="players(3)">Quad</button>
-    </div>
-    <script src="game-logic.js"></script>
+    <h1>you've got mail rulebook</h1>
+    <p>-----</p>
+    <h1>modes:</h1>
+    <h2>solo</h2>
+    <p>
+      <ul>
+        <li>shuffle the numbered tiles, and deal them out to a flat surface</li>
+        <li>prepare a stopwatch to time</li>
+        <li>to play, roll an eight sided die. sort the top envelope from the deck into the tile corresponding with the number rolled</li>
+        <li>once envelop is sorted, roll die and repeat</li>
+        <li>continue sorting until deck is empty (32)</li>
+        <li>once deck is empty, you have won! record time to completion</li>
+      </ul>
+    </p></br>
+    <h2>duel</h2>
+    <p>
+      <ul>
+        <li>divide consecutive tiles evenly between players. one player should have 1-4, the onther 5-8. once divided, each player should suffle their 4 tiles and deal them out to a flat surface</li>
+        <li>divide envelopes evenly between players. each player should have 16 envolopes</li>
+        <li>the game begins by rolling the 4 sided die. each player wants to sort their envelopes to the number rolled (the player with tiles 5-8 should sort to the N-4 tile)</li>
+        <li>the first player to sort to the pile and says the word "sorted" wins the round and can keep their envelope placed. they pickup the die then roll for the next round</li>
+        <li>keep playing until one player has exhausted their deck of envelopes. that player is the winner!</li>
+      </ul>
+    </p></br>
+	<h2>3-4 player</h2>
+    <p>
+      <ul>
+      	<li>shuffle the numbered tiles, and deal them out to a flat surface all players should be able to reach the respective piles</li>
+        <li>divide the envelopes evenly between players (3p 10 each; 4p 8 each)</li>
+        <li>the first round begins by rolling the 8 sided die. each player wants to be the first to sort their envelope to the tile corresponding to the roll. the first player to sort ends the round and now has one less envelope in their deck</li>
+        <li>the player to win the round rolls the die to begin the next round</li>
+        <li>keep playing until one player has exhausted their deck. this player is the winner! the other players can continue playing to determine final ranks</li>
+      </ul>
+    </p></br>
   </body>
 </html>
